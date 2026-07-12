@@ -1,0 +1,7 @@
+api-version: '1.20'
+name: MCKotlin-Paper
+version: 1.5.1-k2.4.0
+main: io.github._4drian3d.mckotlin.paper.PaperPlugin
+description: Kotlin stdlib for Paper plugins (Bukkit/Spigot/Arclight loader compat)
+load: STARTUP
+author: 4drian3d
