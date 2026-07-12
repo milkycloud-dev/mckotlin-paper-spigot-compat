@@ -59,6 +59,14 @@ python patch_mckotlin.py MCKotlinPaper-1.5.1-k2.4.0.jar -o MCKotlinPaper-1.5.1-k
 
 ZAB needs the Kotlin stdlib on the classpath. Patching MCKotlin once fixes every Kotlin Paper plugin on Spigot/Arclight, not just one consumer.
 
+## Upstream
+
+Reported to the author so this can be fixed in the official Paper artifact:
+
+- Issue: [4drian3d/MCKotlin#125](https://github.com/4drian3d/MCKotlin/issues/125) — Paper jar missing classic `plugin.yml`
+
+This repo is a temporary workaround until upstream ships Bukkit metadata.
+
 ## Credits
 
 - Upstream: [4drian3d / MCKotlin](https://github.com/4drian3d/MCKotlin)
