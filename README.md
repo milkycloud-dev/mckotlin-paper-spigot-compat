@@ -31,7 +31,7 @@ load: STARTUP
 author: 4drian3d
 ```
 
-`paper-plugin.yml` is left intact — Paper servers keep working.
+`paper-plugin.yml` is left intact, so Paper servers keep working.
 
 ## Install
 
@@ -63,7 +63,7 @@ ZAB needs the Kotlin stdlib on the classpath. Patching MCKotlin once fixes every
 
 Reported to the author so this can be fixed in the official Paper artifact:
 
-- Issue: [4drian3d/MCKotlin#125](https://github.com/4drian3d/MCKotlin/issues/125) — Paper jar missing classic `plugin.yml`
+- Issue: [4drian3d/MCKotlin#125](https://github.com/4drian3d/MCKotlin/issues/125): Paper jar missing classic `plugin.yml`
 
 This repo is a temporary workaround until upstream ships Bukkit metadata.
 
