@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Self-test on a stub jar
+        run: |
+          python3 -m py_compile patch_mckotlin.py
+          mkdir -p /tmp/stub && cd /tmp/stub && echo "name: stub" > paper-plugin.yml && zip -q stub.jar paper-plugin.yml && cd -
+          python3 patch_mckotlin.py /tmp/stub/stub.jar -o /tmp/stub/out.jar
+          unzip -l /tmp/stub/out.jar | grep -q " plugin.yml$"
+
+      - name: Package the patch kit
+        run: |
+          name="mckotlin-bukkit-patch-${GITHUB_REF_NAME#v}"
+          mkdir "$name" && cp patch_mckotlin.py plugin.yml README.md LICENSE CHANGELOG.md "$name"/
+          zip -qr "$name.zip" "$name"
+
+      - name: Release notes
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          ver="${GITHUB_REF_NAME#v}"
+          awk -v v="$ver" '/^## / {p = ($2 == v); next} p' CHANGELOG.md > notes.md
+          test -s notes.md || echo "Release $GITHUB_REF_NAME" > notes.md
+
+      - uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          name: MCKotlin Paper Spigot Compat ${{ github.ref_name }}
+          body_path: notes.md
+          files: mckotlin-bukkit-patch-*.zip
